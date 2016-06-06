@@ -2,7 +2,11 @@
 // routes/index.js
 var express = require('express');
 var app = express();
-
+var fs = require("fs");
+        console.log("\n *START* \n");
+        var content = fs.readFileSync("./values.json");
+        console.log("Output Content : \n"+ content);
+        console.log("\n *EXIT* \n");
 app.set('view engine', 'pug');
  
 /* GET home page. */
@@ -14,8 +18,7 @@ app.get('/map', function(req,res) {
     
         res.render('map', {
        
-            lat : 40.7848,
-            lng : -73.9598
+            values:content
         });
    
 }); 

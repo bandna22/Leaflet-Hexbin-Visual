@@ -38,9 +38,9 @@ a {
 }
 .my-label {
     position: absolute;    
-    font-size:20px;
+    font-size:14px;
 	color: #FFFCFC;
     background: #215252;
-    padding: 12px;
+    padding: 6px;
 }
 }
