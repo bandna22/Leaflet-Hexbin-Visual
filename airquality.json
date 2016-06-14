@@ -1,0 +1,291 @@
+{
+    "places": [
+        {
+            "Place": "place1",
+            "latitude_place1": 48.167714,
+            "longitude_place1": 11.526728,
+            "air_quality_place1": [
+                9,
+                8,
+                7,
+                6,
+                5,
+                6,
+                8,
+                9,
+                7,
+                7,
+                8,
+                8,
+                8
+            ]
+        },
+        {
+            "Place": "place1",
+            "latitude_place1": 48.139,
+            "longitude_place1": 11.567583,
+            "air_quality_place1": [
+                7,
+                4,
+                5,
+                6,
+                7,
+                8,
+                8,
+                7,
+                5,
+                4,
+                3,
+                5,
+                6
+            ]
+        } , {
+              "Place": "place1",
+              "latitude_place1": 48.146478,
+              "longitude_place1": 11.535686,
+              "air_quality_place1": [
+                  8,
+                  8,
+                  6,
+                  7,
+                  9,
+                  8,
+                  8,
+                  7,
+                  6,
+                  6,
+                  7,
+                  6,
+                  5
+              ]
+          }  ,{
+                "Place": "place1",
+                "latitude_place1": 48.146,
+                "longitude_place1": 11.6,
+                "air_quality_place1": [
+                    4,
+                    5,
+                    4,
+                    6,
+                    5,
+                    7,
+                    8,
+                    9,
+                    6,
+                    5,
+                    5,
+                    6,
+                    8
+                ]
+            },  {
+                  "Place": "place1",
+                  "latitude_place1": 48.116786,
+                  "longitude_place1": 11.534278,
+                  "air_quality_place1": [
+                      9,
+                      9,
+                      9,
+                      8,
+                      7,
+                      7,
+                      8,
+                      9,
+                      7,
+                      7,
+                      7,
+                      8,
+                      7
+                  ]
+              } , {
+                    "Place": "place1",
+                    "latitude_place1": 48.243665,
+                    "longitude_place1": 11.534624,
+                    "air_quality_place1": [
+                        3,
+                        4,
+                        5,
+                        5,
+                        5,
+                        6,
+                        7,
+                        6,
+                        5,
+                        7,
+                        8,
+                        8,
+                        8
+                    ]
+                } , {
+                      "Place": "place1",
+                      "latitude_place1": 48.143665,
+                      "longitude_place1": 11.534624,
+                      "air_quality_place1": [
+                          9,
+                          8,
+                          7,
+                          6,
+                          5,
+                          6,
+                          8,
+                          9,
+                          7,
+                          7,
+                          8,
+                          8,
+                          8
+                      ]
+                  } , {
+                        "Place": "place1",
+                        "latitude_place1": 48.099682,
+                        "longitude_place1": 11.585130,
+                        "air_quality_place1": [
+                            6,
+                            7,
+                            7,
+                            5,
+                            4,
+                            4,
+                            6,
+                            6,
+                            7,
+                            7,
+                            6,
+                            7,
+                            8
+                        ]
+                    } , {
+                          "Place": "place1",
+                          "latitude_place1": 48.099682,
+                          "longitude_place1": 11.585130,
+                          "air_quality_place1": [
+                              9,
+                              7,
+                              7,
+                              8,
+                              9,
+                              7,
+                              8,
+                              7,
+                              7,
+                              8,
+                              9,
+                              9,
+                              7
+                          ]
+                      } ,  {
+                            "Place": "place1",
+                            "latitude_place1": 48.099682,
+                            "longitude_place1": 11.585130,
+                            "air_quality_place1": [
+                                6,
+                                6,
+                                7,
+                                6,
+                                6,
+                                7,
+                                8,
+                                8,
+                                7,
+                                7,
+                                6,
+                                6,
+                                5
+                            ]
+                        } , {
+                              "Place": "place1",
+                              "latitude_place1": 48.099682,
+                              "longitude_place1": 11.585130,
+                              "air_quality_place1": [
+                                  8,
+                                  7,
+                                  8,
+                                  9,
+                                  9,
+                                  7,
+                                  7,
+                                  6,
+                                  5,
+                                  7,
+                                  8,
+                                  7,
+                                  7
+                              ]
+                          } , {
+                                "Place": "place1",
+                                "latitude_place1": 48.099682,
+                                "longitude_place1": 11.585130,
+                                "air_quality_place1": [
+                                    7,
+                                    8,
+                                    6,
+                                    6,
+                                    6,
+                                    7,
+                                    5,
+                                    4,
+                                    6,
+                                    7,
+                                    7,
+                                    6,
+                                    6
+                                ]
+                            } , {
+                                  "Place": "place1",
+                                  "latitude_place1": 48.139925,
+                                  "longitude_place1": 11.627021,
+                                  "air_quality_place1": [
+                                      4,
+                                      5,
+                                      6,
+                                      6,
+                                      5,
+                                      6,
+                                      8,
+                                      7,
+                                      8,
+                                      8,
+                                      6,
+                                      5,
+                                      7
+                                  ]
+                              } , {
+                                    "Place": "place1",
+                                    "latitude_place1": 48.175846,
+                                    "longitude_place1": 11.594083,
+                                    "air_quality_place1": [
+                                        5,
+                                        6,
+                                        5,
+                                        6,
+                                        7,
+                                        8,
+                                        8,
+                                        9,
+                                        7,
+                                        7,
+                                        8,
+                                        9,
+                                        8
+                                    ]
+                                } , {
+                                      "Place": "place1",
+                                      "latitude_place1": 48.178723,
+                                      "longitude_place1": 11.540586,
+                                      "air_quality_place1": [
+                                          4,
+                                          5,
+                                          4,
+                                          4,
+                                          7,
+                                          7,
+                                          8,
+                                          9,
+                                          6,
+                                          7,
+                                          7,
+                                          6,
+                                          7
+                                      ]
+                                  }
+    ]
+}

@@ -1,23 +1,190 @@
 extends layout.pug
 
 block content
-    #map
-   
-    script(type='text/javascript').     
-        var map = L.map('map').setView([65, 28.5], 5);L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
-        var markervals="#{values}";
-        markervals=markervals.split(',');
+
+    #sidebar(class="col-md-2 col-xs-2 col-sm-2")
+        h2 MUNCHEN
+        hr
+        #side
+            #placesdiv
+                ul#listofplaces
+            #svg_div            
+    #map(class="col-md-10 col-sm-10 col-xs-10")
+        #legend(class="leaflet-top leaflet-right")
+            h5 AIR QUALITY
+        #text(class="leaflet-top leaflet-right")
+
+
+    .row
+        #mapbuttons
+            input(type="button", value='-7d',id="before7days", data-days="0")
+            input(type="button", value='-6d',id="before7days", data-days="1")
+            input(type="button", value='-5d',id="before7days", data-days="2")
+            input(type="button", value='-4d',id="before7days", data-days="3")
+            input(type="button", value='-3d',id="before7days", data-days="4")
+            input(type="button", value='-2d',id="before7days", data-days="5")
+            input(type="button", value='-1d',id="before7days", data-days="6")
+            input(type="button", value='today',id="before7days", data-days="7")
+            input(type="button", value='+1d',id="before7days", data-days="8")
+            input(type="button", value='+2d',id="before7days", data-days="9")
+            input(type="button", value='+3d',id="before7days", data-days="10")
+            input(type="button", value='+4d',id="before7days", data-days="11")
+            input(type="button", value='+5d',id="before7days", data-days="12")
+
+    script(type='text/javascript').
+        var center = [48.13, 11.56];
+        var latvals="#{values}";
+        latvals=latvals.split(',');
         var longvals="#{longvalues}";
         longvals=longvals.split(',');
-        var moistvals="#{moistvalues}";
-        moistvals=moistvals.split(',');
-        console.log(markervals[0]);
-        for(i=0;i<markervals.length;i++)
-        {       
-        console.log(markervals[i]);
-        console.log(longvals[i]);
-        console.log(moistvals[i]);
-        var marker = new L.marker([markervals[i], longvals[i]], { opacity: 0.01 });marker.bindLabel(moistvals[i]+"%", {noHide: true, className: "my-label", offset:[0,0]});marker.addTo(map);
+        var aqvals="#{aqvalues}";
+        aqvals=aqvals.split(',');
+        var placeslist="#{placesvalues}"
+        placeslist=placeslist.split(',');
+
+      
+       for(i=0;i<latvals.length;i++)
+        {
+            console.log(latvals.length);
+        $('#listofplaces').append('<li>'+placeslist[i]+'</li>');
         }
-        
+            var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                osm = L.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib});
+
+            map = new L.Map('map', {layers: [osm], center: new L.LatLng(center[0], center[1]), zoom: 11});
+
+            var options = {
+                radius : 12,
+                opacity: 0.8,
+                duration: 500,
+                lng: function(d){
+                    return d[0];
+                },
+                lat: function(d){
+                    return d[1];
+                },
+                value: function(d){
+                 var firstelement = d.reduce(function(a, b) {
+                    return b;
+                    });
+                var arrayval=firstelement.o;
+
+                    return arrayval[2];
+                },
+
+                onmouseover: function(d, node, layer) {
+                var firstelement = d.reduce(function(a, b) {
+                    return b;
+                    });
+                var arrayval=firstelement.o;
+                console.log(arrayval[2]);
+                $('#text').html(arrayval[2]);
+
+
+                },
+                
+                valueFloor: 0,
+                valueCeil: undefined
+            };
+
+            var hexLayer = L.hexbinLayer(options).addTo(map);
+            hexLayer.colorScale().range(['green','yellow', 'red']);
+
+            var latFn = d3.random.normal(center[0], 1);
+            var longFn = d3.random.normal(center[1], 1);
+
+            var generateData = function(aqcount){
+                var data = [];
+                console.log(latvals.length);
+                for(i=0; i<latvals.length; i++){
+                aqindex=(13*i)+aqcount;
+                console.log(aqindex,aqvals[aqindex]);
+                    data.push([longvals[i],  latvals[i],aqvals[aqindex]]);
+                }
+                hexLayer.data(data);
+            };
             
+            var refreshdata=function(aqcount){
+            d3.select("#svg_div").remove();
+            var margin = {top: 0, right: 20, bottom: 0, left: 40},
+                            width = 100 - margin.left - margin.right,
+                            height = 800 - margin.top - margin.bottom;
+                            
+                    var points=[]
+                    
+                    for(i=0;i<latvals.length;i++)
+                    {   aqindex=(13*i)+aqcount;
+                        points[i]=[20,(i*30)+15,aqvals[aqindex]];
+                    
+                    }   
+                        
+                        var color = d3.scale.linear()
+                            .domain([0,4,9])
+                            .range(["green","yellow", "red"]).clamp(true);;
+                            
+
+                        var hexbin = d3.hexbin()
+                            .size([width, height])
+                            .radius(10);
+                         $("#side").append("<div id=\"svg_div\"></div>")
+                        var svg = d3.select("#svg_div").append("svg")
+                            .attr("width", width + margin.left + margin.right)
+                            .attr("height", height + margin.top + margin.bottom)
+                          .append("g")
+                            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                
+                        svg.append("g")
+                              .selectAll(".hexagon")
+                                .data(hexbin(points))
+                              .enter().append("path")
+                                .attr("class", "hexagon")
+                                .attr("d", hexbin.hexagon())
+                                .attr("transform", function(d) { return "translate(" + 20 + "," + d.y + ")"; })
+                                .style("fill", function(d) {
+                                            var arrayval=d.reduce(function(a, b) {
+                                                return b;
+                                                });
+                                                console.log(arrayval[2]);
+                                                return color(arrayval[2]);
+                                             });
+                                             
+                                              hexagons = d3.selectAll(".hexagon")
+
+                    // Add tooltip
+                    // Step 1. Define tooltip
+                    tip = d3.tip()
+                      .attr("class", "d3-tip")
+                      .html(function(d){ var arrayval=d.reduce(function(a, b) {
+                                        return b;
+                                        });
+                                        console.log(arrayval[2]);
+                                        return arrayval[2];})
+
+                    // Step 2. Call tooltip on container
+                    svg.call(tip)
+
+                    // Step 3. Bind show and hide methods
+                    hexagons.on("mouseover", function(d){
+                      tip.show(d)
+                      console.log(d3.select(this).data())
+                    })
+
+                    hexagons.on("mouseout", tip.hide)
+            
+            }
+            
+            var count=7;
+            generateData(count);
+            refreshdata(count);
+             $('#mapbuttons input').on('click', function() {
+                $('#mapbuttons input').removeClass('active');
+                $(this).addClass('active');
+                var day = $(this).data('days');
+                //alert(day);
+                generateData(day);
+                refreshdata(day);
+
+                });
+                
+                

@@ -1,0 +1,168 @@
+<html>
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/d3.hexbin.v0.min.js?5c6e4f0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.6.3/d3-tip.min.js"></script>
+<style>
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.hexagon {
+  fill: none;
+  stroke: #000;
+  stroke-width: .5px;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Northward tooltips */
+.d3-tip.n:after {
+  content: "\25BC";
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+  text-align: center;
+}
+
+/* Eastward tooltips */
+.d3-tip.e:after {
+  content: "\25C0";
+  margin: -4px 0 0 0;
+  top: 50%;
+  left: -8px;
+}
+
+/* Southward tooltips */
+.d3-tip.s:after {
+  content: "\25B2";
+  margin: 0 0 1px 0;
+  top: -8px;
+  left: 0;
+  text-align: center;
+}
+
+/* Westward tooltips */
+.d3-tip.w:after {
+  content: "\25B6";
+  margin: -4px 0 0 -1px;
+  top: 50%;
+  left: 100%;
+}
+</style>
+</head>
+<body>
+<div>
+
+<div id="svg_div"></div>
+<div>
+ <ul>
+<li>Place1</li>
+<li>Place1</li>
+<li>Place1</li>
+</ul>
+</div>
+</div>
+<script>
+
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 100 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
+var ypoint=[ 50, 100, 150, 200]
+var randomX = 20,
+    randomY = d3.random.normal(height / 2, 80),
+    points = [[20,50,1],[20,100,3],[20,150,4],[20,200,5],[20,200,6]];
+	console.log(points);
+
+var color = d3.scale.linear()
+    .domain([0,3,9])
+    .range(["green","yellow", "red"]).clamp(true);;
+    
+
+var hexbin = d3.hexbin()
+    .size([width, height])
+    .radius(15);
+
+var svg = d3.select("#svg_div").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+
+
+svg.append("g")
+  .selectAll(".hexagon")
+    .data(hexbin(points))
+  .enter().append("path")
+    .attr("class", "hexagon")
+    .attr("d", hexbin.hexagon())
+    .attr("transform", function(d) { return "translate(" + 20 + "," + d.y + ")"; })
+    .style("fill", function(d) {
+                var arrayval=d.reduce(function(a, b) {
+                    return b;
+                    });
+                    console.log(arrayval[2]);
+                    return color(arrayval[2]);
+                 });
+
+
+
+
+
+hexagons = d3.selectAll(".hexagon")
+
+// Add tooltip
+// Step 1. Define tooltip
+tip = d3.tip()
+  .attr("class", "d3-tip")
+  .html(function(d){ var arrayval=d.reduce(function(a, b) {
+                    return b;
+                    });
+                    console.log(arrayval[2]);
+                    return arrayval[2];})
+
+// Step 2. Call tooltip on container
+svg.call(tip)
+
+// Step 3. Bind show and hide methods
+hexagons.on("mouseover", function(d){
+  tip.show(d)
+  console.log(d3.select(this).data())
+})
+
+hexagons.on("mouseout", tip.hide)
+ </script>
+</body>
+</html>
